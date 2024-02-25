@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/grades.css" type="text/css">
@@ -19,6 +19,51 @@
             <th>Subject</th>
             <th>Score</th>
         </tr>
+        <!-- Use variable expressions ${}, which are provided by the Thymeleaf library,
+        to execute on a model attribute, using the model attribute name provided in the
+        addAttribute() method (from the Spring framework) in the model controller. The 
+        th:text attribute sets the text content of the element it's used in, in this 
+        case a table data row, <td>. This is, in practice, inserting what is returned 
+        by th:text as the <td></td> content. Note you would use the Thymeleaf th:value 
+        attribute here if you wanted to refer to input provided by the user, such as in
+        a web form.
+         
+        Use a selection expression *{field} to select a field from an object that
+        was previously bound using a variable expression -->
+        <tr th:object="${madigrade}">
+            <td th:text="*{name}"></td>
+            <td th:text="*{subject}"></td>
+            <td th:text="*{score}"></td>
+        </tr>
+        <tr th:object="${livigrade}">
+            <td th:text="*{name}"></td>
+            <td th:text="*{subject}"></td>
+            <td th:text="*{score}"></td>
+        </tr>
+        <tr th:if="${madigradebio.score == 'C'}">
+            <td th:text="${madigradebio.name}"></td>
+            <td th:text="${madigradebio.subject}"></td>
+            <td th:text="${madigradebio.score}"></td>
+        </tr>
+        <tr th:unless="${madigradebio.score == 'A'}">
+            <td th:text="${madigradebio.name}"></td>
+            <td th:text="${madigradebio.subject}"></td>
+            <td th:text="${madigradebio.score}"></td>
+        </tr>
+        <!-- Can use a ternary as well inside text: 
+        th:text="${age > 18} ? 'val1' : 'val2'}" 
+        -->
+        <!-- Can also use a switch:
+        <div th:switch="${model att.}}">
+        <p th:case="'val1'"></p>
+        <p th:case="'val2'"></p>
+        <p th:case="*"></p>
+        </div> 
+        Need to be cautious about these as some of these end up being a lot of logic 
+        inside a view. Think about if there is a way to handle this logic in the
+        controller, or the model, instead. They should only be used in order to determine
+        what is rendered in the view and how, never for business logic.
+        -->
     </table>
 </div>
 </body>

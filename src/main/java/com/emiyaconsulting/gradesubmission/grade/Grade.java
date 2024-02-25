@@ -1,4 +1,4 @@
-package com.emiyaconsulting.gradesubmission;
+package com.emiyaconsulting.gradesubmission.grade;
 
 public class Grade {
     private String name;
